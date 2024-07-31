@@ -23,8 +23,11 @@ class FeedbackController extends Controller
 
     public function show($id): Response
     {
-        if (!$feedback = $this->feedbackService->getById($id)) {
+        try {
+            $feedback = $this->feedbackService->getById($id);
+        } catch (\Exception $e) {
             return response("not found", 404);
+
         }
 
         return response($feedback);
