@@ -9,6 +9,7 @@ use Spatie\LaravelData\Data;
 class FeedbackData extends Data
 {
     public function __construct(
+        public readonly ?int $id,
         public readonly string  $subject,
         public readonly string  $message,
         public readonly ?string $client_name,
@@ -32,6 +33,7 @@ class FeedbackData extends Data
         }
 
         return new self(
+            id: $request->input('id') ?? null,
             subject: $request->input('subject'),
             message: $request->input('message'),
             client_name: $request->input('client_name'),
@@ -43,6 +45,7 @@ class FeedbackData extends Data
     public static function fromModel(Feedback $feedback): self
     {
         return new self(
+            id: $feedback->id,
             subject: $feedback->subject,
             message: $feedback->message,
             client_name: $feedback->user->name,

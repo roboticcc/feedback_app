@@ -8,7 +8,7 @@ export default createStore({
         token: localStorage.getItem('token') || null,
         role: localStorage.getItem('role') || null,
         feedbacks: [],
-        feedback: null,
+        feedback: {},
     },
     mutations: {
         SET_USER(state, user) {
@@ -54,6 +54,12 @@ export default createStore({
                     commit('SET_ROLE', role);
                 });
         },
+        forgotPassword({ commit }, { email }) {
+            return axios.post('/api/auth/forgot-password', { email });
+        },
+        resetPassword({ commit }, payload) {
+            return axios.post('/api/auth/reset-password', payload);
+        },
         logout({commit}) {
             commit('SET_USER', null);
             commit('SET_TOKEN', null);
@@ -92,6 +98,8 @@ export default createStore({
         isAuthenticated(state) {
             return !!state.token;
         },
+        feedbacks: (state) => state.feedbacks,
+        feedback: (state) => state.feedback,
         isManager(state) {
             return state.role === 'manager';
         },

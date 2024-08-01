@@ -14,7 +14,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">Attach File</label>
-                        <input type="file" class="form-control" id="file" @change="handleFileUpload">
+                        <input type="file" class="form-control" id="attachment" @change="handleFileUpload">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -41,7 +41,7 @@ export default {
             formData.append('subject', this.subject);
             formData.append('message', this.message);
             if (this.file) {
-                formData.append('file', this.file);
+                formData.append('attachment', this.file);
             }
             this.$store.dispatch('submitFeedback', formData)
                 .then(() => {

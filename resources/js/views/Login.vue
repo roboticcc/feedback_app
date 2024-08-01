@@ -12,8 +12,14 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" v-model="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <router-link to="/forgot-password">Forgot your password?</router-link>
+                    </div>
                 </form>
+                <div v-if="error" class="mt-3 alert alert-danger">{{ error }}</div>
+                <div class="mt-3">
+                </div>
             </div>
         </div>
     </div>
@@ -25,6 +31,7 @@ export default {
         return {
             email: '',
             password: '',
+            error: '',
         };
     },
     methods: {
@@ -34,6 +41,7 @@ export default {
                     this.$router.push('/dashboard');
                 })
                 .catch(error => {
+                    this.error = 'Login failed. Please check your credentials.';
                     console.error('Login failed:', error);
                 });
         },

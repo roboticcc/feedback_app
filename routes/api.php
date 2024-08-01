@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use App\Http\Middleware\CheckRole;
 use App\Models\User;
@@ -16,6 +18,9 @@ Route::controller(AuthController::class)->prefix('auth')->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+
+    Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
 });
 
 Route::middleware('auth:api')->group(function () {
